@@ -20,8 +20,21 @@ CREATE TABLE IF NOT EXISTS reviews (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    is_admin BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Insert sample products
 INSERT INTO products (name, description, price, image_url) VALUES
 ('Smartphone X', 'Latest smartphone with amazing features', 999.99, 'images/phone.jpg'),
 ('Laptop Pro', 'Professional laptop for all your needs', 1499.99, 'images/laptop.jpg'),
-('Wireless Headphones', 'High-quality wireless headphones', 199.99, 'images/headphones.jpg'); 
+('Wireless Headphones', 'High-quality wireless headphones', 199.99, 'images/headphones.jpg');
+
+-- Insert default admin user (password: admin123)
+INSERT INTO users (username, password, email, is_admin) VALUES
+('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@example.com', TRUE); 
